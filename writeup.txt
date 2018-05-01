@@ -1,0 +1,25 @@
+Description of memhack functionality:
+I implemented this exploit by placing the first character of the guess at the
+last byte before a protected page in memory. The system checks the password
+characters one by one, and only goes on to the next one if the previous ones are
+correct. By placing the guess characters near the protected memory, the system only segfaults if the previous characters are correct and it is now trying 
+to read further characters in the password within the protected page. By trying
+all characters for each position, we can determine the correct one and then
+continue trying for the following characters until we find the whole password. 
+
+Description of timehack functionality:
+I implemented this exploit by simply timing how long it takes for the system to
+determine whether a password guess is valid. I variated the characters in the
+string, starting with only character, finding the one that took the longest for
+the system to guess, saving that character and then repeating the process for
+the second and later characters until the password was found. If the guessed
+password became longer than the provided limit of 12 characters, the program
+restarts from the beginning. The reason this exploit works is because the system
+only checks characters later in the string if the previous characters are
+correct. Thus, by finding the longest time out of all characters at a specific
+position, the program can determine that that character is the correct one.
+
+
+References used:
+For qsort and comparator ideas:
+https://www.geeksforgeeks.org/comparator-function-of-qsort-in-c/
